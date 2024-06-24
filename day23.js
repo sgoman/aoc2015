@@ -2,7 +2,7 @@
 
 const parseInput = input => input.replace(/[,+]/g, '').split('\n').map(l => l.split(' '))
 
-const solve = (isPart2, input, regs) => {
+const solve = (input, regs) => {
 	const l = input.length
 	let ip = 0
 	while (ip < l) {
@@ -19,8 +19,8 @@ const solve = (isPart2, input, regs) => {
 	return regs
 }
 
-const part1 = input => solve(false, parseInput(input), {a: 0, b: 0}).b
+const part1 = input => solve(parseInput(input), {a: 0, b: 0}).b
 
-const part2 = input => solve(false, parseInput(input), {a: 1, b: 0}).b
+const part2 = input => solve(parseInput(input), {a: 1, b: 0}).b
 
 module.exports = { part1, part2 }
