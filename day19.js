@@ -1,7 +1,13 @@
 'use strict'
 
-// Part 1
-// ======
+const shuffledArr = arr => {
+    const newArr = arr.slice()
+    for (let i = newArr.length - 1; i > 0; i--) {
+        const rand = Math.floor(Math.random() * (i + 1));
+        [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]]
+    }
+    return newArr
+}
 
 const part1 = input => {
     const [recstrings, calstring] = input.trim().split('\n\n')
@@ -41,23 +47,25 @@ const part1 = input => {
     return cal.size
 }
 
-// Part 2
-// ======
-
 const part2 = input => {
-    const [recstrings, calstring] = input.trim().split('\n\n')
-    const molecules = recstrings.split('\n').map(line => line.split(' => '))
-    let tmp = calstring
-    let i = 0
-    while(tmp !== 'e') {
-        for (const [inp, out] of molecules) {
-            if (tmp.includes(out)) {
-                tmp = tmp.replace(out, inp)
-                i++
-            }
-        }
-    }
-    return i
+	const [recstrings, calstring] = input.trim().split('\n\n')
+	let molecules = shuffledArr(recstrings.split('\n').map(line => line.split(' => ')))
+	let tmp = calstring, i = 0, j = 0
+	while(tmp !== 'e') {
+		for (const [inp, out] of molecules) {
+			if (tmp.includes(out)) {
+				tmp = tmp.replace(out, inp)
+				i++
+			}
+		}
+		if (j == i) {
+			tmp = calstring, i = 0, j = 0
+			molecules = shuffledArr(molecules)
+		} else {
+			j = i
+		}
+	}
+	return i
 }
 
-module.exports = { part1, part2 }
+module.exports = { part1, part2, shuffledArr }
