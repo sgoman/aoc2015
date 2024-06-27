@@ -46,4 +46,4 @@ const part1 = input => solve(false, input)
 
 const part2 = input => solve(true, input)
 
-module.exports = { part1, part2 }
+module.exports = { part1, part2, permutator, hash }
